@@ -13,10 +13,10 @@ const TableWithInfiniteScroll = () => {
 
   const fetchMore = () => {
     setpage((page) => page + 1);
-    setLoading(true);
   }
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       const res = await axios.get('https://api.github.com/repos/facebook/react/issues', {
         headers: {

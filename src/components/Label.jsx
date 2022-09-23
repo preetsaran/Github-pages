@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-const Label = ({label}) => {
+const Label = ({label, isMobile}) => {
   return (
     <Box 
       component='span'
@@ -13,8 +13,10 @@ const Label = ({label}) => {
         px: '8px',
         ml: '4px',
         display: 'flex',
-        width: 'fit-content'
+        alignItems: 'center',
+        width: 'max-content'
       }}
+      mb={isMobile ? '6px' : '0'} 
     >
       <Box component='a'
         href={label.url}
@@ -23,6 +25,7 @@ const Label = ({label}) => {
             textDecoration: 'none', 
             color: `#${label.color}`,
             fontSize: '12px',
+            textAlign: 'center'
           }
         }
       >

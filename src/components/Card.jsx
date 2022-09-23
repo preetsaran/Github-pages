@@ -39,7 +39,7 @@ const Card = ({data}) => {
         fontFamily='Circular-Loom'
         p={1}
       >
-        <Box height={25} alignSelf='center' pl={1}>
+        <Box height={25} alignSelf='start' p={1}>
           <Icon icon="octicon:issue-opened-16" color='#3fb950' />
         </Box>
 
@@ -52,10 +52,9 @@ const Card = ({data}) => {
                 {data.title}
             </Box>
 
-            <Box display='flex' my={isMobile ? 0.5   : 0}>
-              {data.labels.map((label) => <Label label={label} key={label.id} />)}
+            <Box component='span' display='flex' mt={isMobile ? 1 : 0} flexDirection={isMobile ? 'column' : 'row'}>
+              {data.labels.map((label) => <Label label={label} key={label.id} isMobile={isMobile} />)}
             </Box>
-
           </Box>
 
           <Box component='span' sx={{textDecoration: 'none', color:'#8b949e', fontSize: '12px'}} >
