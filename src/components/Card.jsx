@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react'
 import { Box, Paper } from '@mui/material';
 import { Icon } from '@iconify/react';
 import Label from './Label';
@@ -5,6 +6,21 @@ import en from 'javascript-time-ago/locale/en'
 import TimeAgo from 'javascript-time-ago'
 
 const Card = ({data}) => {
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, []);
+
+  const isMobile = width <= 768;
 
   const getFormatteddate = (date) => {
     const formattedDate = new Date(date)
@@ -28,15 +44,15 @@ const Card = ({data}) => {
         </Box>
 
         <Box pr={1} p={1} minWidth={0} display='flex' flexDirection='column'>
-          <Box display='flex'>
+          <Box display={isMobile? 'block' : 'flex'}>
             <Box 
               component='a' 
-              href="/github/hub/issues/3010" 
+              href={data.url}
               sx={{textDecoration: 'none', color: 'white', fontSize: '16px', fontWeight: '600'}}>
                 {data.title}
             </Box>
 
-            <Box display='flex'>
+            <Box display='flex' my={isMobile ? 0.5   : 0}>
               {data.labels.map((label) => <Label label={label} key={label.id} />)}
             </Box>
 
@@ -44,14 +60,14 @@ const Card = ({data}) => {
 
           <Box component='span' sx={{textDecoration: 'none', color:'#8b949e', fontSize: '12px'}} >
             #{data.id} {`${data.state}ed`}  
-              <Box component='span'> {getFormatteddate(data.created_at)} </Box>
-              <Box 
-                component='a' 
-                href="/github/hub/issues?q=is%3Aissue+is%3Aopen+author%3Anona2512" 
-                sx={{textDecoration: 'none', color: '#8b949e'}}
-              >
-                  by {data.user.login}
-              </Box>
+            <Box component='span'> {getFormatteddate(data.created_at)} </Box>
+            <Box
+              component='a'
+              href={data.user.repos_url}
+              sx={{textDecoration: 'none', color: '#8b949e'}}
+            >
+              by {data.user.login}
+            </Box>
           </Box>
         </Box>
       </Box>

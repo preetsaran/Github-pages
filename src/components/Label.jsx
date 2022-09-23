@@ -17,7 +17,7 @@ const Label = ({label}) => {
       }}
     >
       <Box component='a'
-        href="/github/hub/issues?q=is%3Aissue+is%3Aopen+label%3Abug" 
+        href={label.url}
         sx={
           {
             textDecoration: 'none', 
