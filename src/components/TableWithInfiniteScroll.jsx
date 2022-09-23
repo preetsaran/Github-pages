@@ -1,25 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material';
 import { Waypoint } from "react-waypoint";
 import Card from './Card';
-
-const generateItems = amount => {
-  const arr = Array.from(Array(amount))
-  return arr.map((number, i) => ({
-    id: i,
-    name: `Name ${i + 1}`,
-    type: `Item Type ${i + 1}`,
-  }))
-}
+import axios from 'axios'
 
 const TableWithInfiniteScroll = () => {
-  const [rows, setRows] =  useState(generateItems(50))
+  const [rows, setRows] =  useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get('https://api.github.com/repos/facebook/react/issues')
+      setRows(res.data)
+      console.log('res', res.data)
+    }
+    fetchData()
+  },[])
+
   return (
     <Box display={'flex'} flexDirection='column' border='1px solid rgb(48, 54, 61)' borderRadius='6px' mb={3}>
-      {rows.map(({ id, name, type }) => (
-        <div>
-          {id ===rows.length - 10 &&  <Waypoint onEnter={() => console.log('Entered', id)}/>}
-          <Card />
+      {rows.map((row, idx) => (
+        <div key={row.id}>
+          {idx === rows.length - 10 &&  <Waypoint onEnter={() => console.log('Entered', idx)}/>}
+          <Card data={row}/>
         </div>
       ))}
     </Box>

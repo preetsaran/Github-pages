@@ -1,7 +1,19 @@
 import { Box, Paper } from '@mui/material';
 import { Icon } from '@iconify/react';
+import Label from './Label';
+import en from 'javascript-time-ago/locale/en'
+import TimeAgo from 'javascript-time-ago'
 
-export function Card() {
+const Card = ({data}) => {
+
+  const getFormatteddate = (date) => {
+    const formattedDate = new Date(date)
+    TimeAgo.addLocale(en)
+    return new TimeAgo('en-US').format(formattedDate)
+  }
+
+  getFormatteddate(data.created_at)
+
   return (
     <Paper style={{width: '90vw'}}>
       <Box 
@@ -16,47 +28,29 @@ export function Card() {
         </Box>
 
         <Box pr={1} p={1} minWidth={0} display='flex' flexDirection='column'>
-          <Box>
+          <Box display='flex'>
             <Box 
               component='a' 
               href="/github/hub/issues/3010" 
               sx={{textDecoration: 'none', color: 'white', fontSize: '16px', fontWeight: '600'}}>
-              Error generated from Azure firewall policy rule collection group reports incorrect grammar.
+                {data.title}
             </Box>
 
-            <Box 
-              component='span' 
-              lineHeight={1.5} 
-              borderRadius='40%' 
-              border='1px solid rgb(256, 156, 166, 0.3)' 
-              bgcolor='rgb(215, 58, 74, 0.18)'
-              px='8px'
-              ml='4px'
-            >
-              <Box component='a'
-                href="/github/hub/issues?q=is%3Aissue+is%3Aopen+label%3Abug" 
-                sx={
-                  {
-                    textDecoration: 'none', 
-                    color: 'rgb(256, 156, 166)',
-                    fontSize: '12px',
-                  }
-                }
-              >
-                bug
-              </Box>
+            <Box display='flex'>
+              {data.labels.map((label) => <Label label={label} key={label.id} />)}
             </Box>
+
           </Box>
 
           <Box component='span' sx={{textDecoration: 'none', color:'#8b949e', fontSize: '12px'}} >
-            #3010 opened 
-              <Box component='span'> 3 days ago </Box> by
+            #{data.id} {`${data.state}ed`}  
+              <Box component='span'> {getFormatteddate(data.created_at)} </Box>
               <Box 
                 component='a' 
                 href="/github/hub/issues?q=is%3Aissue+is%3Aopen+author%3Anona2512" 
-                sx={{textDecoration: 'none', ml:'8px', color: '#8b949e'}}
+                sx={{textDecoration: 'none', color: '#8b949e'}}
               >
-                nona2512
+                  by {data.user.login}
               </Box>
           </Box>
         </Box>
