@@ -1,12 +1,12 @@
+import { memo } from 'react';
 import { Box } from '@mui/material';
 import styled from 'styled-components'
 import CloseIcon from "@material-ui/icons/Close";
 
-import { useAppSelector, useAppDispatch } from '../store';
-import { resetParams, updateQueryFlag } from '../reducers/Issues'
+import { useAppSelector, useAppDispatch } from '../../store';
+import { resetParams, updateQueryFlag } from '../../reducers/Issues'
 
 const Search = (props) => {
-
   const { params } = useAppSelector((state) => state.issues);
   const dispatch = useAppDispatch();
   
@@ -44,7 +44,7 @@ const Search = (props) => {
   )
 }
 
-export default Search
+export default memo(Search);
 
 const StyledCloseIcon = styled(CloseIcon)`
   margin-right: 8px;
@@ -53,5 +53,4 @@ const StyledFiltersBox = styled(Box)`
   :hover {
     border: 2px solid #58a6ff;
   }
-  
 `

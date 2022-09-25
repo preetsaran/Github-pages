@@ -2,9 +2,9 @@ import React from 'react'
 import { Box, CircularProgress, Backdrop } from '@mui/material';
 import { Waypoint } from "react-waypoint";
 
-import { updateParams } from '../reducers/Issues'
-import { useAppDispatch, useAppSelector } from '../store'
-import Card from './Card';
+import { updateParams } from '../../reducers/Issues'
+import { useAppDispatch, useAppSelector } from '../../store'
+import Card from '../Card';
 
 const TableWithInfiniteScroll = ({loading}) => {
   const { params, data: rows }=  useAppSelector((state) => state.issues)

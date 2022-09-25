@@ -22,6 +22,7 @@ export default HeaderItem
 
 const StyledDropdown = styled(Dropdown)`
   background: #161b22;
+  
   button {
     background: #161b22;
     color: #8b949e;
