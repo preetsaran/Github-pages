@@ -15,7 +15,7 @@ function App() {
       display='flex' 
       flexDirection='column'
       alignItems='center'
-      py={10}
+      py={5}
     >
       <Search isMobile={isMobile} />
       {isMobile && <LeftContent width='90vw' pl={2} pb={2} />}
