@@ -3,47 +3,18 @@ import { Icon } from '@iconify/react';
 import { Box } from '@mui/material'
 
 import HeaderItem from './HeaderItem';
+import { useAppDispatch } from '../store'
 import { useIsMobile } from './utils/hooks';
-
-const MenuItems = [
-  "Label",
-  "Sort"
-];
-
-const menuMap = {
-  Label: 'labels',
-  Sort: 'sort'
-}
-
-const SubMenuItems = {
-  LabelItems: [
-    'Type: bug',
-    'React Core Team',
-    'Status: Unconfirmed',
-    'CLA Signed',
-    'Type: Needs Investigation',
-    'Component: DOM',
-    'Component: Developer Tools',
-    'Component: ESLint Rules',
-    'Resolution: Stale'
-  ],
-  SortItems: [
-    'created-desc',
-    'created-asc',
-    'comments-desc',
-    'comments-asc',
-    'updated-desc',
-    'updated-asc',
-  ]
-}
+import { updateParams, updateQueryFlag } from '../reducers/Issues'
+import { MenuItems, SubMenuItems, MenuMap } from './utils/constants';
 
 const Header = (props) => {
   const isMobile = useIsMobile();
+  const dispatch = useAppDispatch();
 
   const setFilter = (filterTitle, filterValue) => {
-    props.setfilters((params) => {
-      return {...params, [menuMap[filterTitle]]: filterValue}
-    })
+    dispatch(updateQueryFlag(true))
+    dispatch(updateParams({[MenuMap[filterTitle]]: filterValue, page: 1}))
   }
 
   return (
@@ -55,11 +26,11 @@ const Header = (props) => {
       borderBottom='1px solid rgb(48, 54, 61)'
       alignItems='center'
       justifyContent='space-between'
-      padding='16px'
-      position='fixed'
-      top='0'
-      zIndex={1}
+      py={2}
       px={10}
+      position='fixed'
+      top={0}
+      zIndex={1}
     >
       <Box display={'flex'} flexDirection={isMobile ? 'column' : 'row'} width='30%'>
         <Box display={'flex'} alignItems='center' mr={5}>

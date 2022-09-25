@@ -1,39 +1,36 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from '@mui/material';
-import TableWithInfiniteScroll from "./ListWithInfiniteScroll";
+import ListWithInfiniteScroll from "./ListWithInfiniteScroll";
 import Header from "./Header";
 import { getIssues } from '../api/Issues'
+import { insertData, updateData, updateQueryFlag } from '../reducers/Issues'
+import { useAppDispatch, useAppSelector } from '../store'
 
 const IssuePage = () => {
-  const [filters, setfilters] = useState({per_page: 30, page: 1, labels: '', sort: ''});
-
-  const [rows, setRows] =  useState([]);
+  const { params, data, isQueryUpdated }=  useAppSelector((state) => state.issues)
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
 
-  const fetchMore = useCallback(() => {
-    setfilters((filters) => {
-      return {...filters, page: filters.page + 1}
-    });
-  }, [])
-  
   useEffect(() => {
     setLoading(true);
     const fetchIssues = async () => {
-      const res = await getIssues(filters)
-        setRows([...rows, ...res.data])
-        setLoading(false);
-      // on fetching more issues are added at the end of issues list
-      // on filtering of issues - only issues filtered on the basis of the filter should be shown
+      const res = await getIssues(params)
+      if(isQueryUpdated) {
+        dispatch(updateData(res.data))
+        dispatch(updateQueryFlag(false))
+      }
+      else {
+        dispatch(insertData(res.data))
+      }
+      setLoading(false);
     }
-
     fetchIssues()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[filters])
+  },[params, dispatch])
 
   return (
     <Box display="flex" justifyContent='center' mt={7}>
-      <Header setfilters={setfilters} />
-      <TableWithInfiniteScroll loading={loading} rows={rows} fetchMore={fetchMore} />
+      <Header openIssue={data?.length} />
+      <ListWithInfiniteScroll loading={loading} rows={data} />
     </Box>
   )
 }

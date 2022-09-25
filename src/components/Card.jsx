@@ -35,7 +35,7 @@ const Card = ({data}) => {
       }
 
       <Box pr={1} p={1} minWidth={0} display='flex' flexDirection='column'>
-        <Box display={isMobile? 'block' : 'flex'}>
+        <Box display={isMobile? 'block' : 'flex'} flexDirection='column'>
           <StyledBox 
             component='a' 
             href={data.url}
