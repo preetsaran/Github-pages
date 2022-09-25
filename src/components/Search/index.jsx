@@ -1,8 +1,7 @@
 import { memo } from 'react';
 import { Box } from '@mui/material';
 import styled from 'styled-components'
-import CloseIcon from "@material-ui/icons/Close";
-
+import { CloseIcon } from '../utils/Icons';
 import { useAppSelector, useAppDispatch } from '../../store';
 import { resetParams, updateQueryFlag } from '../../reducers/Issues'
 
