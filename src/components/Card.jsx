@@ -22,7 +22,6 @@ const Card = ({data}) => {
       borderBottom='1px solid rgb(48, 54, 61)'
       fontFamily='Circular-Loom'
       p={1}
-      width = '90vw'
     >
       {data.state === 'open' ?
         <Box height={25} alignSelf='start' p={1}>
@@ -35,7 +34,10 @@ const Card = ({data}) => {
       }
 
       <Box pr={1} p={1} minWidth={0} display='flex' flexDirection='column'>
-        <Box display={isMobile? 'block' : 'flex'} flexDirection='column'>
+        <Box 
+          display={isMobile? 'block' : 'flex'} 
+          flexWrap='wrap'
+        >
           <StyledBox 
             component='a' 
             href={data.url}
@@ -43,12 +45,20 @@ const Card = ({data}) => {
               {data.title}
           </StyledBox>
 
-          <Box component='span' display='flex' mt={isMobile ? 1 : 0} flexDirection={isMobile ? 'column' : 'row'}>
+          <Box 
+            component='span' 
+            display='flex' 
+            mt={isMobile ? 1 : 0} 
+            flexDirection={isMobile ? 'column' : 'row'}
+          >
             {data.labels.map((label) => <Label label={label} key={label.id} isMobile={isMobile} />)}
           </Box>
         </Box>
 
-        <Box component='span' sx={{textDecoration: 'none', color:'#8b949e', fontSize: '12px', }} >
+        <Box 
+          component='span' 
+          sx={{textDecoration: 'none', color:'#8b949e', fontSize: '12px'}} 
+        >
           #{data.id} {`${data.state}ed`}  
           <Box component='span'> {getFormatteddate(data.created_at)} </Box>
           <StyledBox

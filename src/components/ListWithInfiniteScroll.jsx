@@ -15,7 +15,12 @@ const TableWithInfiniteScroll = ({loading}) => {
   }
 
   return (
-    <Box display={'flex'} flexDirection='column' border='1px solid rgb(48, 54, 61)' borderRadius='6px' mb={3}>
+    <Box 
+      display={'flex'} 
+      flexDirection='column' 
+      borderBottom='1px solid rgb(48, 54, 61)' 
+      borderRadius='6px' mb={3}
+    >
       {rows?.map((row, idx) => (
         <div key={idx}>
           {idx === rows.length - 10 &&  <Waypoint onEnter={fetchMore}/>}

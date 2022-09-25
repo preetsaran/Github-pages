@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Box } from '@mui/material';
-import ListWithInfiniteScroll from "./ListWithInfiniteScroll";
+
 import Header from "./Header";
 import { getIssues } from '../api/Issues'
-import { insertData, updateData, updateQueryFlag } from '../reducers/Issues'
 import { useAppDispatch, useAppSelector } from '../store'
+import ListWithInfiniteScroll from "./ListWithInfiniteScroll";
+import { insertData, updateData, updateQueryFlag } from '../reducers/Issues'
 
 const IssuePage = () => {
   const { params, data, isQueryUpdated }=  useAppSelector((state) => state.issues)
@@ -28,7 +29,14 @@ const IssuePage = () => {
   },[params, dispatch])
 
   return (
-    <Box display="flex" justifyContent='center' mt={7}>
+    <Box 
+      display="flex" 
+      flexDirection="column" 
+      width={'90vw'} 
+      bgcolor='#161b22'
+      border='1px solid rgb(48, 54, 61)'
+      borderRadius={2}
+    >
       <Header openIssue={data?.length} />
       <ListWithInfiniteScroll loading={loading} rows={data} />
     </Box>

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  params: {per_page: 60, labels: '', sort: '', page: 1},
+  params: {per_page: 30, labels: '', sort: '', page: 1},
   data: [],
   isQueryUpdated: false
 }
@@ -10,10 +10,14 @@ const issuesSlice = createSlice({
   name: 'issues',
   initialState,
   reducers: {
+    resetParams: (state) => {
+      return {
+        ...state,
+        params: initialState.params
+      }
+    },
     updateParams: (state, action) => {
       const newParams = {...state.params, ...action.payload};
-
-        console.log("newParams", newParams)
       return {
         ...state,
         params: newParams
