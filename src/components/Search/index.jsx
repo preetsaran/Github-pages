@@ -34,10 +34,10 @@ const Search = (props) => {
       </StyledFiltersBox>
       
       {val &&
-        <Box fontWeight='600' fontSize='15px' mt={1} display='flex' alignItems='center'>
-          <StyledCloseIcon onClick={handleClose} />
+        <StyledCloseContainer fontWeight='600' fontSize='15px' mt={1} display='flex' alignItems='center'>
+          <CloseIcon onClick={handleClose} />
           Clear current search query, filters, and sorts
-        </Box>
+        </StyledCloseContainer>
       }
     </Box>
   )
@@ -45,9 +45,14 @@ const Search = (props) => {
 
 export default memo(Search);
 
-const StyledCloseIcon = styled(CloseIcon)`
-  margin-right: 8px;
+const StyledCloseContainer = styled(Box)`
+  svg {
+    margin-right: 8px;
+    background: white;
+    border-radius: 6px;
+  }
 `
+
 const StyledFiltersBox = styled(Box)`
   :hover {
     border: 2px solid #58a6ff;
