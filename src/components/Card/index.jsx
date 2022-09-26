@@ -3,9 +3,8 @@ import { Icon } from '@iconify/react';
 import Label from '../Label/Label';
 import en from 'javascript-time-ago/locale/en'
 import TimeAgo from 'javascript-time-ago'
-import styled from "styled-components";
 import { useIsMobile } from '../utils/hooks';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import { StyledBox, StyledCommentBox, StyledChatBubbleOutlineIcon } from './cardStyles'
 
 const Card = ({data}) => {
   const isMobile = useIsMobile();
@@ -46,7 +45,6 @@ const Card = ({data}) => {
               sx={{textDecoration: 'none', color: 'white', fontSize: '16px', fontWeight: '600'}}>
                 {data?.title}
             </StyledBox>
-
             <Box 
               component='span' 
               display='flex' 
@@ -90,34 +88,3 @@ const Card = ({data}) => {
 }
 
 export default Card;
-
-const StyledBox = styled(Box)`
-  :hover {
-    text-decoration: none;
-    color: white;
-  }
-`
-
-const StyledCommentBox = styled(Box)`
-  text-decoration: none;
-  color: #8b949e;
-  text-align: center;
-
-  :hover {
-    text-decoration: none;
-    color: #8b949e;
-  }
-`
-
-const StyledChatBubbleOutlineIcon = styled(ChatBubbleOutlineIcon)`
-  text-decoration: none;
-  
-  svg {
-    width: 20px;
-  }
-  
-  color: #8b949e;
-  :hover {
-    color: #8b949e;
-  }
-`
