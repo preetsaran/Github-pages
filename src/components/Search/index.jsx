@@ -34,8 +34,17 @@ const Search = (props) => {
       </StyledFiltersBox>
       
       {val &&
-        <StyledCloseContainer fontWeight='600' fontSize='15px' mt={1} display='flex' alignItems='center'>
-          <CloseIcon onClick={handleClose} />
+        <StyledCloseContainer 
+          fontWeight='600' 
+          fontSize='15px' 
+          mt={1} 
+          display='flex' 
+          alignItems='center' 
+          justifyContent={props.isMobile ? 'center' : '' } 
+        >
+          <Box onClick={handleClose}>
+            <CloseIcon />
+          </Box>
           Clear current search query, filters, and sorts
         </StyledCloseContainer>
       }
