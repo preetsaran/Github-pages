@@ -5,28 +5,31 @@ import Header from "../Header";
 import { getIssues } from '../../api/Issues'
 import { useAppDispatch, useAppSelector } from '../../store'
 import ListWithInfiniteScroll from "../ListWithInfiniteScroll";
-import { insertData, updateData, updateQueryFlag } from '../../reducers/Issues'
+import { insertData, updateData, updateQueryFlag, setIsFetchMore } from '../../reducers/Issues'
 
 const IssuePage = () => {
-  const { params, data, isQueryUpdated }=  useAppSelector((state) => state.issues)
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
+  const { isQueryUpdated, params, isFetchMore }=  useAppSelector((state) => state.issues)
 
   useEffect(() => {
     setLoading(true);
     const fetchIssues = async () => {
       const res = await getIssues(params)
+
       if(isQueryUpdated) {
         dispatch(updateData(res.data))
         dispatch(updateQueryFlag(false))
       }
-      else {
+      else if(isFetchMore || isFetchMore === null) {
         dispatch(insertData(res.data))
+        dispatch(setIsFetchMore(false))
       }
+
       setLoading(false);
     }
     fetchIssues()
-  },[params, dispatch])
+  },[dispatch, isQueryUpdated, params, isFetchMore])
 
   return (
     <Box 
@@ -38,7 +41,7 @@ const IssuePage = () => {
       borderRadius={2}
     >
       <Header />
-      <ListWithInfiniteScroll loading={loading} rows={data} />
+      <ListWithInfiniteScroll loading={loading} />
     </Box>
   )
 }

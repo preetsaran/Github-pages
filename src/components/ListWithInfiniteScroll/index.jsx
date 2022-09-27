@@ -2,16 +2,17 @@ import React from 'react'
 import { Box, CircularProgress, Backdrop } from '@mui/material';
 import { Waypoint } from "react-waypoint";
 
-import { updateParams } from '../../reducers/Issues'
+import { updateParams, setIsFetchMore } from '../../reducers/Issues'
 import { useAppDispatch, useAppSelector } from '../../store'
 import Card from '../Card';
 
-const TableWithInfiniteScroll = ({loading}) => {
+const ListWithInfiniteScroll = ({loading}) => {
   const { params, data: rows }=  useAppSelector((state) => state.issues)
   const dispatch = useAppDispatch();
 
   const fetchMore = () => {
     dispatch(updateParams({page: params.page + 1}))
+    dispatch(setIsFetchMore(true))
   }
 
   return (
@@ -38,4 +39,4 @@ const TableWithInfiniteScroll = ({loading}) => {
   )
 }
 
-export default TableWithInfiniteScroll
+export default ListWithInfiniteScroll

@@ -5,7 +5,8 @@ export const {
   updateData,
   resetParams,
   updateParams,
-  updateQueryFlag
+  updateQueryFlag,
+  setIsFetchMore
 } = issues.actions
 
 export default issues.reducer

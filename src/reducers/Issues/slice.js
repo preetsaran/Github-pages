@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   params: {per_page: 30, labels: '', sort: '', page: 1},
   data: [],
-  isQueryUpdated: false
+  isQueryUpdated: false,
+  isFetchMore: null,
 }
 
 const issuesSlice = createSlice({
@@ -39,6 +40,12 @@ const issuesSlice = createSlice({
       return {
         ...state,
         isQueryUpdated: action.payload
+      }
+    },
+    setIsFetchMore: (state, action) => {
+      return {
+        ...state,
+        isFetchMore: action.payload
       }
     },
   }
