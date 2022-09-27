@@ -28,7 +28,14 @@ const Search = (props) => {
   const val = getAllFiltersText();
 
   return (
-    <Box width='90vw' mb={2} minWidth="400px" display={'flex'} justifyContent={props.isMobile ? 'center' : '' } >
+    <Box 
+      width='90vw' 
+      mb={2} 
+      minWidth="400px" 
+      display={'flex'} 
+      alignItems={props.isMobile ? 'center' : ''} 
+      flexDirection='column' 
+    >
       <StyledFiltersBox border='1px solid rgb(48, 54, 61)' borderRadius={2} height={35} width={props.isMobile ? '90%' : '45%'} p={1}>
         Filters:  {getAllFiltersText()}
       </StyledFiltersBox>
@@ -38,7 +45,8 @@ const Search = (props) => {
           fontWeight='600' 
           fontSize='15px' 
           mt={1} 
-          alignItems='center' 
+          display='flex'
+          width={props.isMobile ? '90%' : '45%'}
         >
           <Box onClick={handleClose}>
             <CloseIcon />
